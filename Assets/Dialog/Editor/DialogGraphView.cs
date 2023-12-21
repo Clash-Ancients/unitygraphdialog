@@ -11,13 +11,20 @@ public class DialogGraphView : GraphView
     
     public DialogGraphView()
     {
-        
+        styleSheets.Add(Resources.Load<StyleSheet>("DialogGraph"));
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
         
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
+        var grid = new GridBackground();
+        
+        Insert(0, grid);
+        
+        grid.StretchToParentSize();
+        
+        
         AddElement(GenerateEntryPointNode());
     }
 
