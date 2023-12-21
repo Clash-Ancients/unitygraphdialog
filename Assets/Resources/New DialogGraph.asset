@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a064ba30e16d8174fba4fe886a82c4d2, type: 3}
+  m_Name: New DialogGraph
+  m_EditorClassIdentifier: 
+  ListDialogueNodeData:
+  - GUID: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+    DialogueText: DialogNode
+    Position: {x: 252, y: 100}
+  - GUID: 77a4a905-44a7-497d-8807-41ee08dc4097
+    DialogueText: DialogNode
+    Position: {x: 447, y: 100}
+  - GUID: 74a4c175-5c2d-409d-b133-70d0f92a083a
+    DialogueText: DialogNode
+    Position: {x: 447, y: 217}
+  ListNodeLinkData:
+  - BaseNodeGuid: ffa37a3c-808a-494e-8fb1-7721019da861
+    PortName: Next
+    TargetNodeGuid: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+  - BaseNodeGuid: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+    PortName: Choice 0
+    TargetNodeGuid: 77a4a905-44a7-497d-8807-41ee08dc4097
+  - BaseNodeGuid: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+    PortName: Choice 1
+    TargetNodeGuid: 74a4c175-5c2d-409d-b133-70d0f92a083a
