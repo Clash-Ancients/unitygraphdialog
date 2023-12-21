@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,7 +15,23 @@ public class DialogGraph : EditorWindow
 
     private DialogGraphView _mDialogGraphView;
     
+    #region 系统接口
     private void OnEnable()
+    {
+        ConstructGraphView();
+        GenerateToolbar();
+    }
+
+    private void OnDisable()
+    {
+        rootVisualElement.Remove(_mDialogGraphView);
+    }
+    #endregion
+    
+    #region 构建graphview
+    
+    //construct graph view
+    void ConstructGraphView()
     {
         _mDialogGraphView = new DialogGraphView
         {
@@ -25,9 +42,22 @@ public class DialogGraph : EditorWindow
         
         rootVisualElement.Add(_mDialogGraphView);
     }
-
-    private void OnDisable()
+    
+    //generate tool bar
+    void GenerateToolbar()
     {
-        rootVisualElement.Remove(_mDialogGraphView);
+        var toolbar = new Toolbar();
+
+        var nodeCreateBtn = new Button(() => { _mDialogGraphView.CreateNode();})
+        {
+            text = "Create Node"
+        };
+
+        toolbar.Add(nodeCreateBtn);
+        
+        rootVisualElement.Add(toolbar);
+        
     }
+    
+    #endregion
 }
