@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -79,5 +80,20 @@ public class DialogGraphView : GraphView
         return node;
     }
     
+    //ports
+    public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+    {
+        var compatiblePorts = new List<Port>();
+
+        ports.ForEach(port =>
+        {
+           if(startPort != port && startPort.node != port.node)
+               compatiblePorts.Add(port);
+        });
+
+
+        return compatiblePorts;
+    }
+
     #endregion
 }
