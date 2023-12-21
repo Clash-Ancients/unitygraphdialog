@@ -11,6 +11,9 @@ public class DialogGraphView : GraphView
     
     public DialogGraphView()
     {
+        
+        SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+        
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
@@ -46,12 +49,6 @@ public class DialogGraphView : GraphView
         return entryNode;
     }
     
-    //generate port
-    Port GeneratePort(DialogNode _node, Direction _portDir, Port.Capacity _cap = Port.Capacity.Single)
-    {
-        return _node.InstantiatePort(Orientation.Horizontal, _portDir, _cap, typeof(float));
-    }
-
     public void CreateNode(string _nodeName = "DialogNode")
     {
         AddElement(CreateDialogNode(_nodeName));
@@ -70,6 +67,12 @@ public class DialogGraphView : GraphView
         var inputPort = GeneratePort(node, Direction.Input, Port.Capacity.Multi);
         
         node.inputContainer.Add(inputPort);
+
+        var button = new Button(() => AddChoicePort(node));
+        
+        button.text = "new choice";
+        
+        node.titleContainer.Add(button);
         
         node.RefreshExpandedState();
 
@@ -80,20 +83,42 @@ public class DialogGraphView : GraphView
         return node;
     }
     
-    //ports
+    //generate port
+    Port GeneratePort(DialogNode _node, Direction _portDir, Port.Capacity _cap = Port.Capacity.Single)
+    {
+        return _node.InstantiatePort(Orientation.Horizontal, _portDir, _cap, typeof(float));
+    }
+    
+    //ports: GetCompatiblePorts
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
     {
         var compatiblePorts = new List<Port>();
 
         ports.ForEach(port =>
         {
-           if(startPort != port && startPort.node != port.node)
-               compatiblePorts.Add(port);
+            if(startPort != port && startPort.node != port.node)
+                compatiblePorts.Add(port);
         });
 
 
         return compatiblePorts;
     }
 
+    void AddChoicePort(DialogNode _dialogNode)
+    {
+        var genPort = GeneratePort(_dialogNode, Direction.Output);
+
+        var count = _dialogNode.outputContainer.Query("connector").ToList().Count;
+
+        genPort.portName = $"Choice {count}";
+        
+        _dialogNode.outputContainer.Add(genPort);
+        
+        _dialogNode.RefreshExpandedState();
+
+        _dialogNode.RefreshPorts();
+
+    }
+    
     #endregion
 }
