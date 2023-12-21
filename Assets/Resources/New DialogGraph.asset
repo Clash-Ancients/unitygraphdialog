@@ -13,22 +13,34 @@ MonoBehaviour:
   m_Name: New DialogGraph
   m_EditorClassIdentifier: 
   ListDialogueNodeData:
-  - GUID: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+  - GUID: f782491c-abee-4496-bda7-7924b871d9ac
     DialogueText: DialogNode
-    Position: {x: 252, y: 100}
-  - GUID: 77a4a905-44a7-497d-8807-41ee08dc4097
+    Position: {x: 237, y: 100}
+  - GUID: f71a3375-8990-4559-823d-2452a9e084a1
     DialogueText: DialogNode
-    Position: {x: 447, y: 100}
-  - GUID: 74a4c175-5c2d-409d-b133-70d0f92a083a
+    Position: {x: 561, y: 100}
+  - GUID: 8355156f-f66e-4f58-8b64-e72c09fca26e
     DialogueText: DialogNode
-    Position: {x: 447, y: 217}
+    Position: {x: 583, y: 265}
+  - GUID: 33af197c-bd0a-4018-96b0-b85fc9ee22e5
+    DialogueText: DialogNode
+    Position: {x: 884, y: 139}
+  - GUID: d59977e6-75d7-4935-9b4e-dd8ddae38103
+    DialogueText: DialogNode
+    Position: {x: 830, y: 283}
   ListNodeLinkData:
-  - BaseNodeGuid: ffa37a3c-808a-494e-8fb1-7721019da861
-    PortName: Next
-    TargetNodeGuid: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
-  - BaseNodeGuid: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+  - BaseNodeGuid: f782491c-abee-4496-bda7-7924b871d9ac
     PortName: Choice 0
-    TargetNodeGuid: 77a4a905-44a7-497d-8807-41ee08dc4097
-  - BaseNodeGuid: 2c9e5ae7-9e97-4662-9aa2-41fcae94720c
+    TargetNodeGuid: f71a3375-8990-4559-823d-2452a9e084a1
+  - BaseNodeGuid: b16d6892-be89-4e1a-ad53-8bc411e3ecd9
+    PortName: Next
+    TargetNodeGuid: f782491c-abee-4496-bda7-7924b871d9ac
+  - BaseNodeGuid: f782491c-abee-4496-bda7-7924b871d9ac
     PortName: Choice 1
-    TargetNodeGuid: 74a4c175-5c2d-409d-b133-70d0f92a083a
+    TargetNodeGuid: 8355156f-f66e-4f58-8b64-e72c09fca26e
+  - BaseNodeGuid: f71a3375-8990-4559-823d-2452a9e084a1
+    PortName: Choice 0
+    TargetNodeGuid: 33af197c-bd0a-4018-96b0-b85fc9ee22e5
+  - BaseNodeGuid: f71a3375-8990-4559-823d-2452a9e084a1
+    PortName: Choice 1
+    TargetNodeGuid: d59977e6-75d7-4935-9b4e-dd8ddae38103

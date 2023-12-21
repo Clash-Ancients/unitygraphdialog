@@ -67,7 +67,7 @@ public class GraphSaveUtility
    }
 
    public void LoadGraph(string fileName)
-   {
+   { 
       //load asset file content
       mCacheDialogContainer = AssetDatabase.LoadAssetAtPath<DialogueContainer>($"Assets/Resources/{fileName}.asset");
 
@@ -85,8 +85,9 @@ public class GraphSaveUtility
       ConnectNodes();
    }
 
-   void ClearGraph()
+   void ClearGraph() 
    {
+      
       Nodes.Find(x => x.EntryPoint).GUID = mCacheDialogContainer.ListDialogueNodeData[0].GUID;
 
       foreach (var variable in Nodes)
@@ -102,7 +103,17 @@ public class GraphSaveUtility
 
    void CreateNodes()
    {
-      
+      foreach (var variable in mCacheDialogContainer.ListDialogueNodeData)
+      {
+         var tempNode = mTargetGraphView.CreateDialogNode(variable.DialogueText);
+         tempNode.GUID = variable.GUID;
+         tempNode.SetPosition(new Rect(variable.Position, DialogGraphView.DefaultNodeSize));
+         mTargetGraphView.AddElement(tempNode);
+
+         var nodePorts = mCacheDialogContainer.ListNodeLinkData.Where(x => x.BaseNodeGuid == variable.GUID).ToList();
+         
+         nodePorts.ForEach(x => mTargetGraphView.AddChoicePort(tempNode, x.PortName));
+      }
    }
 
    void ConnectNodes()

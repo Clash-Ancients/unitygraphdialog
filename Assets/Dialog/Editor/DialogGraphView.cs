@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class DialogGraphView : GraphView
 {
-    private readonly Vector2 DefaultNodeSize = new Vector2(200f, 150f);
+    public static readonly Vector2 DefaultNodeSize = new Vector2(200f, 150f);
     
     public DialogGraphView()
     {
@@ -61,7 +62,7 @@ public class DialogGraphView : GraphView
         AddElement(CreateDialogNode(_nodeName));
     }
     
-    DialogNode CreateDialogNode(string _nodeName = "Dialog Node")
+    public DialogNode CreateDialogNode(string _nodeName = "Dialog Node")
     {
         var node = new DialogNode
         {
@@ -111,19 +112,62 @@ public class DialogGraphView : GraphView
         return compatiblePorts;
     }
 
-    void AddChoicePort(DialogNode _dialogNode)
+    public void AddChoicePort(DialogNode _dialogNode, string _portName = "")
     {
         var genPort = GeneratePort(_dialogNode, Direction.Output);
-
+        //
+        // var portLabel = genPort.contentContainer.Q<Label>("type");
+        // genPort.contentContainer.Remove(portLabel);
+        
+      
+        
         var count = _dialogNode.outputContainer.Query("connector").ToList().Count;
-
-        genPort.portName = $"Choice {count}";
-         
+        
+        genPort.portName = string.IsNullOrEmpty(_portName)?$"Choice {count}":_portName;
+        
+        var textField = new TextField
+        {
+            name = string.Empty,
+            value = genPort.portName,
+        };
+        
+        // textField.style.minWidth = 100;
+        // textField.style.maxWidth = 120; 
+        textField.RegisterValueChangedCallback(x => genPort.portName = x.newValue);
+        var delBtn = new Button(() => RemovePort(_dialogNode, genPort))
+        {
+            text = "X",
+        };
+      
+//        genPort.contentContainer.Add(new Label("  "));
+        genPort.contentContainer.Add(textField);
+      
+        
+        genPort.contentContainer.Add(delBtn);
         _dialogNode.outputContainer.Add(genPort);
         
-        _dialogNode.RefreshExpandedState();
-
         _dialogNode.RefreshPorts();
+        _dialogNode.RefreshExpandedState();
+    }
+
+    void RemovePort(DialogNode _dialogNode, Port _genPort)
+    {
+       var list = edges.ToList().Where(x => x.output.portName == _genPort.portName && x.output.node == _genPort.node);
+
+       var enumerable = list as Edge[] ?? list.ToArray();
+       
+       if (enumerable.Any())
+       {
+           var edge = enumerable.First();
+           edge.input.Disconnect(edge);
+           RemoveElement(edge);
+       }
+       
+       _dialogNode.outputContainer.Remove(_genPort);
+       
+       _dialogNode.RefreshPorts();
+       _dialogNode.RefreshExpandedState();
+
 
     }
     
