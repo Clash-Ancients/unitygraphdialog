@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using Node = UnityEditor.Graphs.Node;
 
 public class GraphSaveUtility
 {
@@ -11,7 +12,8 @@ public class GraphSaveUtility
 
    private List<Edge> Edges => mTargetGraphView.edges.ToList();
    private List<DialogNode> Nodes => mTargetGraphView.nodes.ToList().Cast<DialogNode>().ToList();
-   
+
+   private DialogueContainer mCacheDialogContainer;
    
    
    public static GraphSaveUtility GetInstance(DialogGraphView _graphView)
@@ -66,7 +68,47 @@ public class GraphSaveUtility
 
    public void LoadGraph(string fileName)
    {
+      //load asset file content
+      mCacheDialogContainer = AssetDatabase.LoadAssetAtPath<DialogueContainer>($"Assets/Resources/{fileName}.asset");
+
+      if (null == mCacheDialogContainer)
+      {
+         EditorUtility.DisplayDialog("File Not Found", "target file not exist", "OK");
+         return;
+      }
+      
+      //clear
+      ClearGraph();
+      //create nodes
+      CreateNodes();
+      //connect nodes
+      ConnectNodes();
+   }
+
+   void ClearGraph()
+   {
+      Nodes.Find(x => x.EntryPoint).GUID = mCacheDialogContainer.ListDialogueNodeData[0].GUID;
+
+      foreach (var variable in Nodes)
+      {
+         if(variable.EntryPoint)
+            continue;
+         Edges.Where(edge => edge.input.node == variable).ToList().ForEach(edge => mTargetGraphView.RemoveElement(edge));
+         
+         mTargetGraphView.RemoveElement(variable);
+      }
       
    }
+
+   void CreateNodes()
+   {
+      
+   }
+
+   void ConnectNodes()
+   {
+      
+   }
+   
    
 }

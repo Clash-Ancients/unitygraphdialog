@@ -118,7 +118,7 @@ public class DialogGraphView : GraphView
         var count = _dialogNode.outputContainer.Query("connector").ToList().Count;
 
         genPort.portName = $"Choice {count}";
-        
+         
         _dialogNode.outputContainer.Add(genPort);
         
         _dialogNode.RefreshExpandedState();
