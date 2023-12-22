@@ -13,31 +13,13 @@ MonoBehaviour:
   m_Name: New DialogGraph
   m_EditorClassIdentifier: 
   ListDialogueNodeData:
-  - GUID: f22d25e7-9add-495c-9b50-dec7f52ac75e
+  - GUID: 2a22ffcf-65dd-4ab3-a655-91829878641b
     DialogueText: ENTRYPOINT
     Position: {x: 100, y: 100}
-  - GUID: d68faa3a-2167-4585-a660-2412eed26a63
+  - GUID: 6759b72c-74c3-426b-979e-f23bd7dc4378
     DialogueText: DialogNode
-    Position: {x: 346, y: 111}
-  - GUID: 5f221541-de74-4e94-ad06-a66508322885
-    DialogueText: DialogNode
-    Position: {x: 346, y: 240}
-  - GUID: 1082ef2f-73d4-48fb-9ed7-f615999a3b66
-    DialogueText: DialogNode
-    Position: {x: 666, y: 139}
-  - GUID: 95bda01f-f870-4612-8d45-e50b18a91983
-    DialogueText: DialogNode
-    Position: {x: 618, y: 251}
+    Position: {x: 274, y: 79}
   ListNodeLinkData:
-  - BaseNodeGuid: f22d25e7-9add-495c-9b50-dec7f52ac75e
+  - BaseNodeGuid: 2a22ffcf-65dd-4ab3-a655-91829878641b
     PortName: Next
-    TargetNodeGuid: d68faa3a-2167-4585-a660-2412eed26a63
-  - BaseNodeGuid: 5f221541-de74-4e94-ad06-a66508322885
-    PortName: Choice 0
-    TargetNodeGuid: 95bda01f-f870-4612-8d45-e50b18a91983
-  - BaseNodeGuid: d68faa3a-2167-4585-a660-2412eed26a63
-    PortName: Choice 0
-    TargetNodeGuid: 1082ef2f-73d4-48fb-9ed7-f615999a3b66
-  - BaseNodeGuid: d68faa3a-2167-4585-a660-2412eed26a63
-    PortName: Choice 1
-    TargetNodeGuid: 5f221541-de74-4e94-ad06-a66508322885
+    TargetNodeGuid: 6759b72c-74c3-426b-979e-f23bd7dc4378

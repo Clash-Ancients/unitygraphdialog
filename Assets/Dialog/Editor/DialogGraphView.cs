@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -45,6 +44,9 @@ public class DialogGraphView : GraphView
         var port = GeneratePort(entryNode, Direction.Output);
 
         port.portName = "Next";
+
+        entryNode.capabilities &= ~Capabilities.Deletable;
+        entryNode.capabilities &= ~Capabilities.Movable;
         
         entryNode.outputContainer.Add(port);
         
@@ -81,6 +83,20 @@ public class DialogGraphView : GraphView
         button.text = "new choice";
         
         node.titleContainer.Add(button);
+
+        node.styleSheets.Add(Resources.Load<StyleSheet>("DialogNode"));
+
+        var textField = new TextField(string.Empty);
+
+        textField.RegisterValueChangedCallback(x =>
+        {
+            node.DialogText = x.newValue;
+            node.title = x.newValue;
+        });
+        
+        textField.SetValueWithoutNotify(node.title);
+        
+        node.mainContainer.Add(textField);
         
         node.RefreshExpandedState();
 
