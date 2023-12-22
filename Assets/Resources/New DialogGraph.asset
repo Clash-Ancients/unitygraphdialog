@@ -13,34 +13,31 @@ MonoBehaviour:
   m_Name: New DialogGraph
   m_EditorClassIdentifier: 
   ListDialogueNodeData:
-  - GUID: f782491c-abee-4496-bda7-7924b871d9ac
+  - GUID: f22d25e7-9add-495c-9b50-dec7f52ac75e
+    DialogueText: ENTRYPOINT
+    Position: {x: 100, y: 100}
+  - GUID: d68faa3a-2167-4585-a660-2412eed26a63
     DialogueText: DialogNode
-    Position: {x: 237, y: 100}
-  - GUID: f71a3375-8990-4559-823d-2452a9e084a1
+    Position: {x: 346, y: 111}
+  - GUID: 5f221541-de74-4e94-ad06-a66508322885
     DialogueText: DialogNode
-    Position: {x: 561, y: 100}
-  - GUID: 8355156f-f66e-4f58-8b64-e72c09fca26e
+    Position: {x: 346, y: 240}
+  - GUID: 1082ef2f-73d4-48fb-9ed7-f615999a3b66
     DialogueText: DialogNode
-    Position: {x: 583, y: 265}
-  - GUID: 33af197c-bd0a-4018-96b0-b85fc9ee22e5
+    Position: {x: 666, y: 139}
+  - GUID: 95bda01f-f870-4612-8d45-e50b18a91983
     DialogueText: DialogNode
-    Position: {x: 884, y: 139}
-  - GUID: d59977e6-75d7-4935-9b4e-dd8ddae38103
-    DialogueText: DialogNode
-    Position: {x: 830, y: 283}
+    Position: {x: 618, y: 251}
   ListNodeLinkData:
-  - BaseNodeGuid: f782491c-abee-4496-bda7-7924b871d9ac
-    PortName: Choice 0
-    TargetNodeGuid: f71a3375-8990-4559-823d-2452a9e084a1
-  - BaseNodeGuid: b16d6892-be89-4e1a-ad53-8bc411e3ecd9
+  - BaseNodeGuid: f22d25e7-9add-495c-9b50-dec7f52ac75e
     PortName: Next
-    TargetNodeGuid: f782491c-abee-4496-bda7-7924b871d9ac
-  - BaseNodeGuid: f782491c-abee-4496-bda7-7924b871d9ac
-    PortName: Choice 1
-    TargetNodeGuid: 8355156f-f66e-4f58-8b64-e72c09fca26e
-  - BaseNodeGuid: f71a3375-8990-4559-823d-2452a9e084a1
+    TargetNodeGuid: d68faa3a-2167-4585-a660-2412eed26a63
+  - BaseNodeGuid: 5f221541-de74-4e94-ad06-a66508322885
     PortName: Choice 0
-    TargetNodeGuid: 33af197c-bd0a-4018-96b0-b85fc9ee22e5
-  - BaseNodeGuid: f71a3375-8990-4559-823d-2452a9e084a1
+    TargetNodeGuid: 95bda01f-f870-4612-8d45-e50b18a91983
+  - BaseNodeGuid: d68faa3a-2167-4585-a660-2412eed26a63
+    PortName: Choice 0
+    TargetNodeGuid: 1082ef2f-73d4-48fb-9ed7-f615999a3b66
+  - BaseNodeGuid: d68faa3a-2167-4585-a660-2412eed26a63
     PortName: Choice 1
-    TargetNodeGuid: d59977e6-75d7-4935-9b4e-dd8ddae38103
+    TargetNodeGuid: 5f221541-de74-4e94-ad06-a66508322885

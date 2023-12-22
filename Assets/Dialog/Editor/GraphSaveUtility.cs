@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Node = UnityEditor.Graphs.Node;
 
 public class GraphSaveUtility
@@ -46,7 +47,8 @@ public class GraphSaveUtility
          });
       }
 
-      foreach (var VARIABLE in Nodes.Where(node => !node.EntryPoint))
+      //foreach (var VARIABLE in Nodes.Where(node => !node.EntryPoint))
+      foreach (var VARIABLE in Nodes)
       {
          dialogContainer.ListDialogueNodeData.Add(new DialogueNodeData
          {
@@ -103,7 +105,7 @@ public class GraphSaveUtility
 
    void CreateNodes()
    {
-      foreach (var variable in mCacheDialogContainer.ListDialogueNodeData)
+      foreach (var variable in mCacheDialogContainer.ListDialogueNodeData.Where(x => !x.DialogueText.Equals("ENTRYPOINT")))
       {
          var tempNode = mTargetGraphView.CreateDialogNode(variable.DialogueText);
          tempNode.GUID = variable.GUID;
@@ -118,7 +120,39 @@ public class GraphSaveUtility
 
    void ConnectNodes()
    {
+      for (var i = 0; i < Nodes.Count; i++)
+      {
+         var connnections = mCacheDialogContainer.ListNodeLinkData.Where(x => x.BaseNodeGuid == Nodes[i].GUID).ToList();
+
+         for (var j = 0; j < connnections.Count; j++)
+         {
+            //output link to input
+            var conn = connnections[j];
+            var targetGuid = conn.TargetNodeGuid;
+            var targetNode = Nodes.First(x => x.GUID == targetGuid);
+
+            var outputPort = Nodes[i].outputContainer[j].Q<Port>();
+            
+            var inputPort = (Port)targetNode.inputContainer[0];
+            
+            LinkNodes(outputPort, inputPort);
+         }
+         
+      }
+   }
+
+   void LinkNodes(Port _output, Port _input)
+   {
+      var tempEdge = new Edge
+      {
+         output = _output,
+         input = _input
+      };
       
+      tempEdge.input.Connect(tempEdge);
+      tempEdge.output.Connect(tempEdge);
+
+      mTargetGraphView.Add(tempEdge);
    }
    
    
