@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 public class DialogGraphView : GraphView
 {
     public static readonly Vector2 DefaultNodeSize = new Vector2(200f, 150f);
+
+    private NodeSearchWindow mNodeSearchWindow;
     
     public DialogGraphView()
     {
@@ -26,6 +28,7 @@ public class DialogGraphView : GraphView
         
         
         AddElement(GenerateEntryPointNode());
+        AddSearchWindow();
     }
 
     #region create node
@@ -187,5 +190,14 @@ public class DialogGraphView : GraphView
 
     }
     
+    #endregion
+    
+    #region search window
+
+    void AddSearchWindow()
+    {
+        mNodeSearchWindow = ScriptableObject.CreateInstance<NodeSearchWindow>();
+        nodeCreationRequest = context => SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), mNodeSearchWindow);
+    }
     #endregion
 }
