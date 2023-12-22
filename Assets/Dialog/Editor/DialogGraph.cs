@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -22,6 +23,7 @@ public class DialogGraph : EditorWindow
     {
         ConstructGraphView();
         GenerateToolbar();
+        GenerateBlackBoard();
     }
 
     private void OnDisable()
@@ -96,5 +98,16 @@ public class DialogGraph : EditorWindow
         
     }
     
+    #endregion
+    
+    #region black board
+    void GenerateBlackBoard()
+    {
+        var blackboard = new Blackboard(_mDialogGraphView);
+        
+        blackboard.Add(new BlackboardSection {title = "Exposed Properties"});
+        
+        _mDialogGraphView.Add(blackboard);
+    }
     #endregion
 }
