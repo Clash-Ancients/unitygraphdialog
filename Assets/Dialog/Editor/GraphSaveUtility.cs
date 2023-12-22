@@ -107,7 +107,7 @@ public class GraphSaveUtility
    {
       foreach (var variable in mCacheDialogContainer.ListDialogueNodeData.Where(x => !x.DialogueText.Equals("ENTRYPOINT")))
       {
-         var tempNode = mTargetGraphView.CreateDialogNode(variable.DialogueText);
+         var tempNode = mTargetGraphView.CreateDialogNode(variable.DialogueText, Vector2.zero);
          tempNode.GUID = variable.GUID;
          tempNode.SetPosition(new Rect(variable.Position, DialogGraphView.DefaultNodeSize));
          mTargetGraphView.AddElement(tempNode);

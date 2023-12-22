@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: New DialogGraph
   m_EditorClassIdentifier: 
   ListDialogueNodeData:
-  - GUID: 2a22ffcf-65dd-4ab3-a655-91829878641b
+  - GUID: 9ba406fe-e1fd-4c0e-bc08-a8301698eef8
     DialogueText: ENTRYPOINT
     Position: {x: 100, y: 100}
-  - GUID: 6759b72c-74c3-426b-979e-f23bd7dc4378
-    DialogueText: DialogNode
-    Position: {x: 274, y: 79}
+  - GUID: fb03c294-70d2-4efe-9f76-64581efbf9c7
+    DialogueText: Dialog Node
+    Position: {x: 320, y: 126}
+  - GUID: d4b5e446-a580-4e56-b186-f008ea4afbbf
+    DialogueText: Dialog Node
+    Position: {x: 637, y: 151}
   ListNodeLinkData:
-  - BaseNodeGuid: 2a22ffcf-65dd-4ab3-a655-91829878641b
+  - BaseNodeGuid: 9ba406fe-e1fd-4c0e-bc08-a8301698eef8
     PortName: Next
-    TargetNodeGuid: 6759b72c-74c3-426b-979e-f23bd7dc4378
+    TargetNodeGuid: fb03c294-70d2-4efe-9f76-64581efbf9c7
+  - BaseNodeGuid: fb03c294-70d2-4efe-9f76-64581efbf9c7
+    PortName: Choice 0
+    TargetNodeGuid: d4b5e446-a580-4e56-b186-f008ea4afbbf

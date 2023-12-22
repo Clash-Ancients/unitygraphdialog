@@ -23,9 +23,9 @@ public class DialogGraph : EditorWindow
     {
         ConstructGraphView();
         GenerateToolbar();
-        GenerateBlackBoard();
+        //GenerateBlackBoard();
     }
-
+    
     private void OnDisable()
     {
         rootVisualElement.Remove(_mDialogGraphView);
@@ -38,7 +38,7 @@ public class DialogGraph : EditorWindow
     
     void ConstructGraphView()
     {
-        _mDialogGraphView = new DialogGraphView
+        _mDialogGraphView = new DialogGraphView(this)
         {
             name = "Dialog Graph",
         };
@@ -70,7 +70,7 @@ public class DialogGraph : EditorWindow
         toolbar.Add(saveBtn);
         toolbar.Add(loadBtn);
         
-        var nodeCreateBtn = new Button(() => { _mDialogGraphView.CreateNode();})
+        var nodeCreateBtn = new Button(() => { _mDialogGraphView.CreateNode("Dialog Node", Vector2.zero);})
         {
             text = "Create Node"
         };

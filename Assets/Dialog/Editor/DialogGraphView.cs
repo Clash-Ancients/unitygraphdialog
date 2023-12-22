@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,10 +12,14 @@ public class DialogGraphView : GraphView
 
     private NodeSearchWindow mNodeSearchWindow;
     
-    public DialogGraphView()
+    private EditorWindow mEditorWindow;
+    
+    public DialogGraphView(EditorWindow editwin)
     {
         styleSheets.Add(Resources.Load<StyleSheet>("DialogGraph"));
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+
+        mEditorWindow = editwin;
         
         this.AddManipulator(new ContentDragger());
         this.AddManipulator(new SelectionDragger());
@@ -62,12 +67,12 @@ public class DialogGraphView : GraphView
         return entryNode;
     }
     
-    public void CreateNode(string _nodeName = "DialogNode")
+    public void CreateNode(string _nodeName , Vector2 localpos)
     {
-        AddElement(CreateDialogNode(_nodeName));
+        AddElement(CreateDialogNode(_nodeName, localpos));
     }
     
-    public DialogNode CreateDialogNode(string _nodeName = "Dialog Node")
+    public DialogNode CreateDialogNode(string _nodeName, Vector2 localpos)
     {
         var node = new DialogNode
         {
@@ -105,7 +110,7 @@ public class DialogGraphView : GraphView
 
         node.RefreshPorts();
         
-        node.SetPosition(new Rect(Vector2.zero, DefaultNodeSize));
+        node.SetPosition(new Rect(localpos, DefaultNodeSize));
 
         return node;
     }
@@ -193,11 +198,14 @@ public class DialogGraphView : GraphView
     #endregion
     
     #region search window
-
-    void AddSearchWindow()
+    void AddSearchWindow() 
     {
         mNodeSearchWindow = ScriptableObject.CreateInstance<NodeSearchWindow>();
-        nodeCreationRequest = context => SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), mNodeSearchWindow);
+        mNodeSearchWindow.Init(this, mEditorWindow);
+        nodeCreationRequest = context =>
+        {
+            SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), mNodeSearchWindow);
+        };
     }
     #endregion
 }
